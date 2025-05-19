@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src='https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js'></script>
+
+<script>
+    $(document).ready(function() {
+        $(".potion").draggable({
+            revert: true
+        });
+
+        $("#beaker").droppable({
+            drop: function(event, ui) {
+                var droppedItem = $(ui.draggable);
+                if (droppedItem.hasClass('potion2')) {
+                    droppedItem.animate({ left: '170px', bottom: '0px' }, 'fast');
+                } else {
+                    droppedItem.fadeOut(function() {
+                        var potionSound = new Audio('audio/potion.mp3');
+                            potionSound.play();
+                        if ($('.potion1').is(':hidden') && $('.potion3').is(':hidden')) {
+                            window.location.href = "electro5.html";
+                        }
+                    });
+                }
+            }
+        });
+
+        $('#output').text('Mix two potions to make a formula to save Electro')
+    });
+</script>
+
+</head>
+<body>
+    <div id="stage">
+        <img id="labtable" src="images/labtable.png" alt="Lab Table">
+        <img class='potion potion1' src="images/potion1.png" alt="Potion">
+        <img class='potion potion2' src='images/potion2.png' alt='potion' style='left:170px' >
+        <img class='potion potion3' src='images/potion3.png' alt='potion' style='left:330px'>
+        <img id='beaker' src='images/emptybeaker.png' alt='beaker' style='left:1030px; width:350px;'>
+        <div id='output'></div>
+    </div>  
+</body>
+</html>

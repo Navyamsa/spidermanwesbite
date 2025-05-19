@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+
+<script>
+$(document).ready(function(){
+    var firstName = localStorage.getItem('fname');
+    $('#output').text("This potion should work on electro for sure!");
+
+    $('#stage').click(events);
+    let progress = 0;
+
+    function events (){
+        console.log(progress);
+        progress ++;
+        if (progress == 1){
+            $('#output').text('Now all that we have to do is pour this formula into the tank')
+        }
+
+        if (progress ==2){
+            window.location = 'electro6.html';
+        }
+
+    }
+
+});
+</script>
+
+</head>
+<body>
+    <div id="stage">
+        <img id="labtable" src="images/labtable.png" alt="Lab Table">
+        <img id="beaker" src="images/beakerfull.png" style="width: 450px; left:35%">
+        <div id="output"></div>
+    </div>  
+</body>
+</html>

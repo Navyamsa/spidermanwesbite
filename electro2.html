@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src='https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js'></script>
+
+<script>
+$(document).ready(function() {
+    var windSound = new Audio('audio/flying.m4a');
+            windSound.play();
+    $('#electro, #spiderman3').animate({
+        left: '-1000px' 
+    }, 1000, function() {
+        window.location.href = 'electro3.html';
+    });
+});
+</script>
+
+</head>
+<body style="margin: 0;">
+    <div id="stage" style="position: relative;">
+        <img id='city' src="images/city.jpg">
+        <img id='spiderman3' src='images/swinging.png'>
+        <img id='electro' src='images/electro.png' style="position: absolute; bottom: 0; left: 10%;">
+        <img id='webimage' src='images/web.png' style="display: none; position: absolute; bottom: 0; left: 7%;">
+    </div>
+</body>
+</html>

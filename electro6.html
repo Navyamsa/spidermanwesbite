@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>MMCC3045</title>
+    <link href="main.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+
+   <script>
+        $(document).ready(function() {
+            $('#rightBtn,#leftBtn').hide();
+            var firstName = localStorage.getItem('fname');
+
+            $('#output').text("Spiderman: It's all over for you electro");
+
+            var progress = 0;
+
+            function events() {
+                console.log(progress);
+                progress++;
+
+                if (progress === 1) {
+                    $('#output').text("Electro: I will get you back Spiderman, Don't worry.");
+                }
+
+                if (progress === 2) {
+                    showMessage("Drag the potion onto Electro to save him.");
+                }
+            }
+
+            function showMessage(message) {
+                alert(message);
+            }
+
+            $('#stage').on('click', function() {
+                events(); 
+            });
+
+            $('#beaker').draggable();
+
+            $('#electro').droppable({
+                drop: function(event, ui) {
+                        var potionSound = new Audio('audio/potion.mp3');
+                            potionSound.play();
+                    $(ui.draggable).fadeOut('slow', function() {
+                        window.location = 'page2.html';
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body style="margin: 0;">
+    <div id="stage" style="position: relative;">
+        <img src="images/lab.png" alt="Lab Image">
+        <img id="spiderman" src="images/standing.png" alt="Spiderman Standing" style="position: absolute; top: 10%; left: 900px;">
+        <img id="electro" src="images/electro.png" alt="Electro" style="position: absolute; top: 7%; width: 450px; left: 50px;">
+        <img id="beaker" src="images/beakerfull.png" alt="Beaker Full" style="position: absolute; width: 150px; left: 850px;">
+        <div id="output"></div>
+    </div>
+</body>
+</html>
