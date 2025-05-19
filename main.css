@@ -5,7 +5,7 @@
     margin: auto;
     margin-top: 10px;
     position: relative;
-    background-image: url('images/spiderman.png');
+    background-image: ('Images/spiderman.png');
     overflow: hidden;
     font-size: 60px;
     z-index: 1;
