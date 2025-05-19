@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src='https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js'></script>
+
+<script>
+$(document).ready(function() {
+    $('#rightBtn,#leftBtn').hide();
+    var firstName = localStorage.getItem('fname');
+    $('#output').text('Green Goblin: Spiderman, you can never stop me');
+
+    var progress = 0;
+    function events() {
+        console.log(progress);
+        progress++;
+
+        if (progress == 1) {
+            $('#output').text('Spiderman: Funny you think that, Green Goblin');
+        }
+
+        if (progress == 2) {
+            $('#output').text('');
+            $('#rightBtn, #leftBtn').show();
+
+            $('#stage').off('click');
+
+
+            $('#rightBtn').click(function() {
+                console.log('RIGHT WAS CLICKED');
+                $('#rightBtn, #leftBtn').hide();
+
+               $('#stage').on('click', function(){
+                    events(); 
+                });
+
+            });
+
+
+            $('#leftBtn').click(function() {
+                console.log('LEFT WAS CLICKED');
+                $('#rightBtn,#leftBtn').hide();
+                var webSound = new Audio('audio/webshoot.mp3');
+                webSound.play();
+                $('#webimage').fadeIn();
+                $('#webimage').fadeOut();
+
+               $('#stage').on('click', function(){
+                    events(); 
+                });
+
+                
+            });
+        }
+
+        if (progress == 3){
+            $('#output').text("Spiderman: So Close!");
+        }
+
+        if (progress == 4) {
+            $('#output').text("Green Goblin: Let's see if you can catch me");
+        }
+
+        if (progress == 4) {
+            var windSound = new Audio('audio/flying.m4a');
+            windSound.play();
+            $('#greengoblin').animate({
+                left: '-233px'
+            },1000, function() {
+                $(this).remove(); 
+                window.location.href = 'greengoblin2.html';
+            });
+        }
+    }
+
+    $('#stage').on('click', function(){
+        events(); 
+    });
+
+    let moneyGen = setInterval(addMoney, 50);
+
+    function addMoney() {
+        generatemoney();
+    }
+
+    function getRandomNumber(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    function generatemoney() {
+        $('<img>').appendTo('#stage')
+        .attr('class','money')
+        .attr('src','images/money.jpg')
+        .css({'left': getRandomNumber(2,1400)})
+        .animate({
+            top: 700
+        }, {
+            easing:'linear',
+            duration: 2000,
+        });
+    }
+});
+</script>
+
+</head>
+<body class="greengoblinpage">
+    <div id="stage">
+        <img src="images/bank.png">
+        <img id='greengoblin' src='images/greengoblin.png'>
+        <img id='spiderman1' src='images/upsidedown.png'>
+        <img id='webimage' src='images/web.png'> 
+        <img id='money' src='images/money.jpg'>
+        <button id="rightBtn">Kick</button>
+        <button id="leftBtn" >Web</button>
+        <div id="output"></div>
+    </div>
+</body>
+</html>

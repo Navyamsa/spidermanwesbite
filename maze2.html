@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src='https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js'></script>
+<script src="https://mmcc.mq.edu.au/mmcc3045/resources/js/hittest.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        const change = {
+            w: {top: '-=0.25'},
+            a: {left: '-=0.25'},
+            s: {top: '+=0.25'},
+            d: {left: '+=0.25'}
+        }
+
+        let animation;
+        let going;
+        let fadingIn = false; 
+
+        let hitTest = setInterval(hitDetect, 50);
+
+        $(document).one('keydown', keyDown);
+
+        function keyDown(event){
+            $(document).one('keyup', keyUp);
+            if (event.key=='w'||event.key=='a'|| event.key=='s'||event.key=='d') {
+                animation = change[event.key];
+                going = setInterval(keepGoing,1);
+                if(event.key =='a') {
+                    $('#player').css({transform: 'scaleX(-1)'})
+                }
+                if(event.key =='d') {
+                    $('#player').css({transform: 'scaleX(1)'})
+                }
+            }
+        }
+
+        function keyUp(){
+            clearInterval(going);
+            $(document).one('keydown', keyDown);
+        }
+
+        function keepGoing(){
+            if (fadingIn) return;
+            $('#player').css(animation);
+        }
+
+        function hitDetect(){
+            let hit = $('#player').objectHitTest({
+                'object': $('#tunnel'),
+                'transparency': true
+            });
+
+            let hitGate = $('#player').objectHitTest({
+                'object': $('#gate'), 
+                'transparency': true
+            });
+
+            let hitGate1 = $('#player').objectHitTest({
+                'object': $('#gate1'),
+                'transparency': true
+            })
+
+            let hitGate2 = $('#player').objectHitTest({
+                'object': $('#gate2'),
+                'transparency': true
+            })
+
+            if(hit || hitGate || hitGate1 || hitGate2){
+                clearInterval(hitTest);
+                $('#player').hide();
+                setTimeout(reset, 1500);
+            }
+            
+            let exitHit = $('#player').objectHitTest({
+                'object': $('#exit'),
+                'transparency': true
+            });
+
+            if(exitHit){
+                clearInterval(hitTest);
+                setTimeout(function(){
+                    window.location = 'electro.html';
+                }, 1500);
+            }
+        }
+
+        function reset() {
+            fadingIn = true;
+            $('#player').css({
+                top: 665,
+                left: 188,
+                transform: 'scaleX(1)'
+            }).fadeIn(1500, function(){
+                fadingIn = false;
+                hitTest = setInterval(hitDetect, 50);
+            });
+        }
+    });
+</script>
+
+</head>
+<body>
+    <audio loop src="audio/maze.mp3" autoplay></audio>
+    <div id='stage'>
+        <img src="images/citymaze.png">
+        <div id='exit'></div>
+        <div id='gate'></div>
+        <div id='gate1'></div>
+        <div id='gate2'></div>
+        <img src='images/standing.png' id='player'>
+        <img src='images/maze2.png' id='tunnel'> 
+    </div>  
+</body>
+</html>

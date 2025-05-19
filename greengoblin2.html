@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src='https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js'></script>
+
+<script>
+$(document).ready(function() {
+    $('#rightBtn,#leftBtn').hide();
+    var firstName = localStorage.getItem('fname');
+    $('#output').text('Spiderman: He escaped way too fast');
+
+    var progress = 0;
+    function events() {
+        console.log(progress);
+        progress++;
+
+        if (progress == 1) {
+            $('#output').text('Spiderman: We need to catch him before he causes more trouble in the city.');
+        }
+
+        if (progress == 2) {
+            var windSound = new Audio('audio/flying.m4a');
+            windSound.play();
+            $('#spiderman3').animate({
+                left:'-500px'
+            }, 1000, function(){
+                $(this).remove();
+                window.location.href = 'greengoblin3.html';
+            });    
+        }
+    }
+
+    $('#stage').on('click', function(){
+        events(); 
+    });
+
+    let moneyGen = setInterval(addMoney, 50);
+
+    function addMoney() {
+        generatemoney();
+    }
+
+    function getRandomNumber(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    function generatemoney() {
+        $('<img>').appendTo('#stage')
+        .attr('class','money')
+        .attr('src','images/money.jpg')
+        .css({'left': getRandomNumber(2,1400)})
+        .animate({
+            top: 700
+        }, {
+            easing:'linear',
+            duration: 2000,
+        });
+    }
+});
+</script>
+
+</head>
+
+<body class="greengoblinpage">
+    <div id="stage">
+        <img src="images/bank.png">
+        <img id='spiderman3' src='images/swinging.png'>
+        <img id='money' src='images/money.jpg'>
+        <div id="output"></div>
+    </div>
+</body>
+
+
+</html>

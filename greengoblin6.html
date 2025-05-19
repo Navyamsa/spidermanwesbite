@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src='https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js'></script>
+
+<script>
+$(document).ready(function() {
+
+    $('#greengoblin2').animate({
+        left: '90px'
+            }, 1000, function() {
+        });
+
+    var progress = 0;
+    function events() {
+        console.log(progress);
+        progress++;
+
+        if(progress == 1){
+        	$('#output').text('Green Goblin: I see you have found my secret lair spiderman. you will not escape from me');
+        }
+
+        if(progress == 2){
+        	console.log('bye')
+        	window.location = 'greengoblin7.html'
+        }
+    }
+
+    $('#stage').on('click',function(){
+        events(); 
+    }) 
+});
+</script>
+
+
+</head>
+
+<body>
+    <audio src='audio/flying.m4a' autoplay></audio>
+    <div id="stage">
+        <img src="images/insidecave.png" alt="Cave Background">
+        <img class="spiderman1" src="images/standing.png" style="position: absolute; bottom: 8%; right: 3%;" width="500px" height="640px" alt="Spiderman">
+        <img id="greengoblin2" src="images/greengoblin.png" alt="Green Goblin">
+        <div id='output'></div>
+    </div>
+</body>
+</html>

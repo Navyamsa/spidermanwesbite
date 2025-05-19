@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src='https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js'></script>
+
+<script>
+$(document).ready(function() {
+    $('#rightBtn,#leftBtn').hide();
+    var firstName = localStorage.getItem('fname');
+
+    $('#output').text('Spiderman: We must be inside his cave');
+
+    var progress = 0;
+    var shelfComplete = false;
+    var chestComplete = false;
+
+    function events() {
+        console.log(progress);
+        progress++;
+
+        if (progress == 1) {
+            $('#output').text("Spiderman: He has quite a lot to unpack");
+        }
+
+        if (progress == 2) {
+            showMessage("Move, drag, and click on items on the screen to interact.");
+        }
+    }
+
+    function showMessage(message) {
+        alert(message); 
+    }
+
+    $('#stage').on('click', function() {
+        events(); 
+    });
+
+    $('.key').draggable();
+    $('.chest').droppable({
+        drop: function(event, ui) {
+            $('.key').fadeOut('slow');
+            var keysound = new Audio('audio/keyjingle.mp3');
+                keysound.play();
+            $('#output').text("Spiderman: Some documentation of Green Goblin and the serum research.");
+            $('#stage').one('click', function() {
+                $('#output').text("Spiderman: Osborn tests the serum on himself in his private lab, but the unstable concoction explodes in his face, leaving him hospitalized for weeks.");
+                $('#stage').one('click', function() {
+                    $('#output').text("Spiderman: He emerges smarter and possessing superhuman strength.");
+                    $('#stage').one('click', function() {
+                        $('#output').text("Spiderman: But at the cost of his sanity and moral inhibitions, signaling the beginning of the Goblin identity.");
+                        $('#stage').one('click',function(){
+                          chestComplete = true;
+                        })
+                    });
+                });
+            });
+        }
+    });
+
+    $('.shelf').on('click', function() {
+            var cabsound = new Audio('audio/opencab.mp3');
+                cabsound.play();
+        $('#output').text("Spiderman: The weakness of the Green Goblin, namely the Norman Osborn version, is the character's outlandish madness.");
+        $('#stage').one('click', function() {
+            $('#output').text("Spiderman: The Goblin Formula had a drastic effect on Norman's mind.");
+            $('#stage').one('click', function() {
+                $('#output').text("Spiderman: Which when combined with his previous megalomania made him a villain hellbent on destruction and mayhem.");
+                $('#stage').one('click',function(){
+                    shelfComplete = true;
+                })
+            });
+        });
+    });
+
+    setInterval(checkInteractions, 100);
+
+    function checkInteractions(){
+        if (chestComplete && shelfComplete == true){
+            window.location = 'greengoblin6.html'
+        }
+    }
+
+    $('#stage').on('click',function(){
+        events(); 
+    })
+});
+</script>
+
+</head>
+
+<body>
+    <div id="stage">
+        <img src="images/insidecave.png" alt="Cave Background">
+        <img class="spiderman1" src="images/standing.png" style="position: absolute; bottom: 12%; right: 3%;" width="180px" height="210px" alt="Spiderman">
+        <div id="output"></div>
+        <img class="key" src="images/key.png" alt="Key">
+        <img class="shelf" src="images/shelf.png" alt="Shelf">
+        <img class="chest" src="images/chest.png" alt="Chest">
+    </div>
+</body>
+</html>

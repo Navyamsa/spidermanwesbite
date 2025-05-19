@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src='https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js'></script>
+
+<script>
+$(document).ready(function() {
+    var duration = 1000; 
+
+    
+    $('#output').text('Green Goblin: Fight me Spiderman');
+
+
+    var progress = 0;
+    function events() {
+        console.log(progress);
+        progress++;
+
+        if (progress == 1) {
+            var windSound = new Audio('audio/flying.m4a');
+            windSound.play();
+            $('#greengoblin2').animate({
+                left: '900px'
+            }, duration);
+
+            $('#spiderman1').animate({
+                left: '0px'
+            }, duration);
+        }
+
+        if (progress == 2) {
+            $('#output').text('Spiderman: You missed Osborne');
+        }
+
+        if(progress ==3){
+            $('#output').text('Green Goblin: How do you know my name?!!')
+        }
+
+        if(progress ==4){
+                $('#stage').click(function() {
+                $('#webimage').fadeIn();
+                var webSound = new Audio('audio/webshoot.mp3');
+                webSound.play();
+            });
+        }
+
+        if(progress ==5){
+            $('#output').text("Spiderman: That's the end of your mischeif Osborne")
+        }
+
+        if(progress ==6){
+            window.location = 'page2.html'
+        }
+    }
+
+    $('#stage').on('click', function() {
+        events(); 
+    });
+});
+</script>
+</head>
+
+<body>
+    <div id="stage" style="position: relative;">
+        <img src="images/insidecave.png">
+        <img id="spiderman1" src="images/swinging.png" style="position: absolute; bottom: 8%; left: 70%; width: 450px; height: auto;" alt="Spiderman">
+        <img id="greengoblin2" src="images/greengoblin.png" alt="Green Goblin" style="position: absolute; bottom: 10%; left: 44px; width: 500px; height: auto;">
+        <img id='webimage'src='images/web.png' style='position: absolute; bottom:10%; left:900px'>
+        <div id="output"></div>
+    </div>
+</body>
+</html>

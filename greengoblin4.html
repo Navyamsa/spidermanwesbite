@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src='https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js'></script>
+
+<script>
+$(document).ready(function() {
+
+    var progress = 0;
+
+    function events() {
+        console.log(progress);
+        progress++;
+
+        if (progress == 1){
+            $('#output').text('Spiderman: I need to find a way inside!')
+        }
+
+        if (progress == 2) {
+            $('#output').text("Spiderman: I think I need to click one of these bricks to find the key inside");
+        }
+        
+        $('#stage').on('click', function() {
+        events(); 
+        });
+
+    }
+
+    var bricks = $('.brick');
+    var randomIndex = Math.floor(Math.random() * bricks.length);
+    $(bricks[randomIndex]).attr('id', 'right-brick');
+
+    bricks.each(function(index) {
+        
+        var randomTop = Math.floor(Math.random() * ($('#stage').height() / 2 - $(this).height()));
+        var randomLeft = Math.floor(Math.random() * ($('#stage').width() - $(this).width()));
+        $(this).css({ top: randomTop + 'px', left: randomLeft + 'px', position: 'absolute' });
+    });
+
+    bricks.on('click', function() {
+        var bricksound = new Audio('audio/brick.mp3');
+            bricksound.play();
+        if ($(this).attr('id') === 'right-brick') {
+            window.location.href = 'greengoblin5.html'; 
+        } else {
+            $(this).addClass('fall');
+        }
+    });
+
+    events();
+
+});
+</script>
+</head>
+
+<body>
+    <div id="stage">
+        <img src='images/brickwall.png'>
+        <img class ='spiderman1' src='images/standing.png' style="position: absolute; bottom: 12%; left: 90%;"
+        width="110px" height='140px' >
+        <div id="output"></div>
+        <div class="brick"></div>
+        <div class="brick"></div>
+        <div class="brick"></div>
+        <div class="brick"></div>
+        <div class="brick"></div>
+        <div class="brick"></div>
+        <div class="brick"></div>
+    </div>
+</body>
+</html>

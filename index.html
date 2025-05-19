@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+
+
+<script>
+$(document).ready(function(){
+
+
+    $('#enter').click(saveData);
+
+    function saveData(){
+        let firstName = $('#fname').val(); 
+        localStorage.setItem('fname', firstName);
+        showMessage("Name logged");
+        window.location = 'page2.html';
+    }
+});
+
+function showMessage(message) {
+    alert(message); 
+}
+</script>
+
+</head>
+
+<body>
+
+<audio loop src="audio/mainpage1.mp3" autoplay></audio>
+
+
+<div id="stage" class="center"> 
+    <form class="inputother">
+        <label for="fname">Name:</label>
+        <input class="input" type="text" id="fname" name="fname"><br><br>
+        <img id="enter" src="images/enter icon.png" alt="Enter"> 
+    </form>
+</div>
+
+</body>
+</html>

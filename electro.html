@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MMCC3045</title>
+<link href="main.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#rightBtn,#leftBtn').hide();
+    var firstName = localStorage.getItem('fname');
+    $('#output').text('Electro: Spiderman, you can never stop me');
+
+    var progress = 0;
+    function events() {
+        progress++;
+
+        if (progress == 1) {
+            $('#output').text('Spiderman: Funny you think that, Electro');
+        }
+
+        if (progress == 2) {
+            $('#output').text('');
+            $('#rightBtn, #leftBtn').show();
+
+            $('#stage').off('click');
+
+            $('#rightBtn').click(function() {
+                console.log('RIGHT WAS CLICKED');
+                $('#rightBtn,#leftBtn').hide();
+                $('#electro').animate({ left: '-=50px' }, 500, function() {
+                    $('#webimage').fadeIn(); 
+                    var webSound = new Audio('audio/webshoot.mp3');
+                        webSound.play();
+                });
+
+               $('#stage').on('click', function(){
+                    events(); 
+                });
+            });
+
+            $('#leftBtn').click(function() {
+                console.log('LEFT WAS CLICKED');
+                $('#rightBtn,#leftBtn').hide();
+                $('#webimage').fadeIn();
+                    var webSound = new Audio('audio/webshoot.mp3');
+                        webSound.play();
+
+               $('#stage').on('click', function(){
+                    events(); 
+                });
+            });
+
+        }
+
+
+        if (progress == 3) {
+            $('#output').text("Spiderman: Hahahahah got you Electro");
+
+        }
+
+        if (progress == 4) {
+            console.log('Redirecting to electro2.html');
+            window.location.href = 'electro2.html';
+        }
+    }
+
+    $('#stage').on('click', function(){
+        events(); 
+    });
+
+});
+</script>
+
+</head>
+<body style="margin: 0;">
+    <div id="stage" style="position: relative;">
+        <img id='city' src="images/city.jpg" alt="City Image">
+        <img class="spiderman3" src="images/standing.png" style="position: absolute; bottom: 70px; left: 65%;" alt="Spiderman Standing">
+        <img id='electro' src='images/electro.png' style="position: absolute; bottom: 0; left: 10%;" alt="Electro">
+        <img id='webimage' src='images/web.png' style="display: none; position: absolute; bottom: 0; left: 7%;" alt="Web">
+        <button id="rightBtn">Kick</button>
+        <button id="leftBtn">Web</button>
+        <div id="output"></div>
+    </div>
+</body>
+
+</html>
