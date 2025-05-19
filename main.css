@@ -277,7 +277,7 @@ label {
 .brick {
     width: 100px;
     height: 50px;
-    background: url('images/brick.jpg') no-repeat center center;
+    background: url('Images/brick.jpg') no-repeat center center;
     margin: 5px;
     cursor: pointer;
     transition: transform 0.5s;
